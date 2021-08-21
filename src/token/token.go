@@ -31,7 +31,7 @@ const (
 
 var keywords = map[string]TokenType{
 	"fn":  FUNCTION,
-	"LET": LET,
+	"let": LET,
 }
 
 func LookupIdent(ident string) TokenType {
