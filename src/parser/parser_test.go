@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestLetStatements(t *testing.T) {
+func TestReturnStatements(t *testing.T) {
 	input := `
-let x 5;
-let = 10;
-let 838383;
+return 5;
+return 10;
+return 838383;
 `
 	l := lexer.New(input)
 	p := New(l)
@@ -25,6 +25,25 @@ let 838383;
 	if len(program.Statements) != 3 {
 		t.Fatalf("program.Statements does not contain 3 arguements. got=%d",
 			len(program.Statements))
+	}
+
+	for _, stmt := range program.Statements {
+
+		returnStmt, ok := stmt.(*ast.ReturnStatement)
+
+		if !ok {
+
+			t.Errorf("stmt not *ast.returnStatement. got=%T", stmt)
+			continue
+
+		}
+
+		if returnStmt.TokenLiteral() != "return" {
+
+			t.Errorf("returnStmt.TokenLiteral not 'return', got %q",
+				returnStmt.TokenLiteral())
+
+		}
 	}
 
 	tests := []struct {
@@ -56,7 +75,6 @@ func checkParserErrors(t *testing.T, p *Parser) {
 	}
 	t.FailNow()
 }
-
 func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	if s.TokenLiteral() != "let" {
 		t.Errorf("s.TokenLiteral not 'let'. got=%q", s.TokenLiteral())
