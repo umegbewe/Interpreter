@@ -62,8 +62,8 @@ type ExpressionStatement struct {
 	Expression Expression
 }
 
-func (es *ExpressionStatement) statementNode()        {}
-func (es *ExpressionsStatement) TokenLiteral() string { return es.Token.Literal }
+func (es *ExpressionStatement) statementNode()       {}
+func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
 
 func (p *Program) String() string {
 	var out bytes.Buffer
